@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.chatapp.ToolsController">
+   <children>
+      <Label layoutX="236.0" layoutY="14.0" text="Tools">
+         <font>
+            <Font name="Bodoni MT Bold Italic" size="32.0" />
+         </font>
+      </Label>
+      <Button layoutX="22.0" layoutY="79.0" mnemonicParsing="false" text="BMI Calculator" />
+      <Button layoutX="201.0" layoutY="79.0" mnemonicParsing="false" text="Plagiarism Remover" />
+      <Button layoutX="408.0" layoutY="79.0" mnemonicParsing="false" text="Content Generator" />
+   </children>
+</AnchorPane>
