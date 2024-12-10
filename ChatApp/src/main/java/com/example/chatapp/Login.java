@@ -6,6 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -19,9 +22,25 @@ public class Login extends Application {
         initials();
 
         stage.setTitle("Chat App - Login");
+
+//        // Correct Media and MediaPlayer for the video
+//        String videoPath = new File("src/main/resources/com/example/chatapp/videos/loginBackground.mp4").toURI().toString();
+//        Media media = new Media(videoPath);
+//        MediaPlayer mediaPlayer = new MediaPlayer(media);
+//        MediaView mediaView = new MediaView(mediaPlayer);
+//
+//        // Adjust MediaView to cover the window
+//        mediaView.setFitWidth(600);
+//        mediaView.setFitHeight(600);
+//        mediaView.setPreserveRatio(false);
+//
+//        // Start the video in a loop
+//        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+//        mediaPlayer.play();
+
+        // Create the login interface
         VBox layout = new VBox();
 
-        // Labels and fields
         Label usernameLabel = new Label("Username:");
         usernameLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: #fffefe;");
 
@@ -35,9 +54,7 @@ public class Login extends Application {
         PasswordField passwordField = new PasswordField();
         passwordField.setMaxWidth(200);
         passwordField.setMinWidth(50);
-        passwordField.setAlignment(Pos.CENTER);
 
-        // Buttons
         Button loginButton = new Button("Login");
         Button registerButton = new Button("Register");
 
@@ -46,11 +63,19 @@ public class Login extends Application {
         loginStuff.setAlignment(Pos.CENTER);
         loginStuff.setSpacing(10);
 
-        // Layout
         layout.getChildren().addAll(usernameLabel, usernameField, passwordLabel, passwordField, loginStuff);
         layout.setAlignment(Pos.CENTER);
         layout.setSpacing(10);
-        layout.setStyle("-fx-background-color: #000000");
+        layout.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6);"); // Transparent black background
+
+        // Overlay the layout on top of the video
+        StackPane root = new StackPane();
+//        root.getChildren().addAll(mediaView, layout);
+
+        // Set the scene
+        Scene scene = new Scene(root, 600, 600);
+        stage.setScene(scene);
+        stage.show();
 
         // Login button action
         loginButton.setOnAction(e -> validateLogin(stage, usernameField, passwordField));
@@ -70,12 +95,9 @@ public class Login extends Application {
                 validateLogin(stage, usernameField, passwordField);
             }
         });
-
-        root.setCenter(layout);
-        Scene scene = new Scene(root, 600, 600);
-        stage.setScene(scene);
-        stage.show();
     }
+
+
 
     // Method to validate user login
     public void validateLogin(Stage stage, TextField usernameField, PasswordField passwordField) {

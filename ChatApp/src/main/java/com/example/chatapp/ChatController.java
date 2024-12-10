@@ -63,6 +63,17 @@ public class ChatController extends Application {
         });
 
 
+        //Button action handler
+        serverButton.setOnAction(event -> {
+            try{
+                Gui gui = new Gui();
+                gui.start(primaryStage);
+            }catch (Exception e){
+                throw new RuntimeException(e);
+            }
+        });
+
+
 
     }
 
