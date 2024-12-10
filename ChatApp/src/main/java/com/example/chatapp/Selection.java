@@ -1,9 +1,5 @@
 package com.example.chatapp;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,29 +8,15 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
-import javafx.stage.Stage;
-import javafx.application.Application;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-//import javax.print.attribute.standard.Media;
-import java.awt.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import java.io.File;
 import java.io.IOException;
 
@@ -42,69 +24,76 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
-public class Selection extends Application {
+public class Selection{
 
     private BorderPane root = new BorderPane();
     @FXML
     AnchorPane anchorSelection;
 
-    @Override
     public void start(Stage primaryStage) throws IOException {
-        primaryStage.setTitle("Tools Selection");
-
+        primaryStage.setTitle("Selection");
         FXMLLoader selectionLoader = new FXMLLoader(Selection.class.getResource("selection-view.fxml"));
-
-        Button forwardButton = new Button("Forward");
-        Button backButton = new Button("Back");
-        HBox backforward = new HBox();
-        backforward.getChildren().addAll(backButton, forwardButton);
-        backforward.setSpacing(10);
-        backforward.setAlignment(Pos.BASELINE_RIGHT);
 
         // Load initial content (Chat or selection screen)
         root.setCenter(selectionLoader.load());
-        root.setBottom(backforward);
 
         Button chatButton = (Button) root.lookup("#chatAppButton");
         Button creatorButton = (Button) root.lookup("#creatorsButton");
         Button toolButton = (Button) root.lookup("#toolsButton");
-
 
         //adding sounds
         addHoverSound(chatButton);
         addHoverSound(toolButton);
         addHoverSound(creatorButton);
 
-        //apply animation on anchor
-//        anchorSelection.setStyle("-fx-background-color: linear-gradient(to bottom, #1e3c72, #2a5298);");
+
+
+        // Handle "BackSpace" key for moving back to previous window
+        root.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.BACK_SPACE) {
+                Login login = new Login();
+                try {
+                    login.start(primaryStage);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+
 
         toolButton.setOnAction(e -> {
-            root.setCenter(null);
-            // Load the Tools view and set it in the center of the BorderPane
-            FXMLLoader toolsLoader = new FXMLLoader(getClass().getResource("tools-view.fxml"));
-            Node toolsContent = null;
             try {
-                toolsContent = toolsLoader.load();
+                ToolsController toolsController = new ToolsController();
+                toolsController.start(primaryStage);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-            root.setCenter(toolsContent);
+
 
         });
 
 
+
+
         chatButton.setOnAction(e -> {
             try {
-                chatOpen();
+                ChatController chatController = new ChatController();
+                chatController.start(primaryStage);
             } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
         });
 
         Scene scene = new Scene(root, 600,600 );
         createReactiveBackground(scene);
+
+        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
+
     }
 
     @FXML
@@ -159,16 +148,8 @@ public class Selection extends Application {
             background.setFill(Color.color(red, green, blue));
         });
     }
-
-
-
-
-    public void chatOpen() throws IOException {
-        root.setCenter(null);
-        FXMLLoader chatLoader = new FXMLLoader(Selection.class.getResource("chat-view.fxml"));
-        root.setCenter(chatLoader.load());
-    }
 }
+
 //        try {
 //            // Load the Chat view and set it in the center of the BorderPane
 ////            FXMLLoader chatLoader = new FXMLLoaderXMLLoader(getClass().getResource("chat-view.fxml"));

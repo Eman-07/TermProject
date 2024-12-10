@@ -6,12 +6,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1301.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="chatAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="1049.0" layoutY="639.0" mnemonicParsing="false" text="Button" />
-      <TextArea layoutX="493.0" layoutY="20.0" prefHeight="573.0" prefWidth="796.0" />
-      <TextField layoutX="822.0" layoutY="633.0" />
-      <ListView layoutX="48.0" layoutY="29.0" prefHeight="531.0" prefWidth="200.0" />
+      <Button layoutX="721.0" layoutY="549.0" mnemonicParsing="false" text="Button" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="14.0" />
+      <ListView layoutX="14.0" layoutY="14.0" prefHeight="573.0" prefWidth="246.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
+      <TextArea layoutX="277.0" layoutY="14.0" prefHeight="502.0" prefWidth="509.0" AnchorPane.bottomAnchor="84.0" AnchorPane.leftAnchor="277.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
+      <TextField layoutX="499.0" layoutY="549.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="114.0" />
    </children>
 </AnchorPane>
