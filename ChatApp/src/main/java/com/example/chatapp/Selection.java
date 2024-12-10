@@ -27,8 +27,6 @@ import javafx.util.Duration;
 public class Selection{
 
     private BorderPane root = new BorderPane();
-    @FXML
-    AnchorPane anchorSelection;
 
     public void start(Stage primaryStage) throws IOException {
         primaryStage.setTitle("Selection");

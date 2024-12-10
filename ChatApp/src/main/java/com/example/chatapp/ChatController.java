@@ -17,6 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.Serializable;
 
 public class ChatController extends Application {
     @Override
@@ -66,8 +67,10 @@ public class ChatController extends Application {
         //Button action handler
         serverButton.setOnAction(event -> {
             try{
-                Gui gui = new Gui();
-                gui.start(primaryStage);
+//                Gui gui = new Gui();
+//                gui.start(primaryStage);
+                Server server = new Server();
+                server.start(primaryStage);
             }catch (Exception e){
                 throw new RuntimeException(e);
             }
