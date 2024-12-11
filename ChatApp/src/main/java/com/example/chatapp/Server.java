@@ -95,9 +95,9 @@ public class Server extends Gui implements Runnable {
     }
 
     public void dummyContacts() {
-        getContactList().add(new Contact("eman", "05213510"));
-        getContactList().add(new Contact("sami", "05213510"));
-        getContactList().add(new Contact("moeed", "05213510"));
+        getContactList().add(new Contact("Eman", "05213510"));
+        getContactList().add(new Contact("Sami", "05213510"));
+        getContactList().add(new Contact("Moeed", "05213510"));
         updateContactButtons();
     }
 }
