@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Gui extends Application {
 
@@ -21,18 +22,14 @@ public class Gui extends Application {
     private TextField messageInputField;
     private Button sendButton;
 
-    private ObservableList<Contact> contactList = FXCollections.observableArrayList();
+    public ObservableList<Contact> contactList = FXCollections.observableArrayList();
     private Map<String, Button> contactButtons = new HashMap<>();
 
     public Stage stage1 = new Stage();
 
 
-    public Gui(){
-//        start(new Stage());
-    }
     @Override
     public void start(Stage stage) {
-
         stage.setTitle("Chat Application");
         stage1 = stage;
         // Layouts
@@ -80,9 +77,6 @@ public class Gui extends Application {
         stage.setScene(scene);
         stage.show();
 
-        // Initialize Data
-        setupContacts();
-        sendButton();
 
         // Menu Actions
         addContact.setOnAction(e -> showAddContactDialog());
@@ -100,17 +94,65 @@ public class Gui extends Application {
                sendButton.fire();
             }
         });
+
+
+
+        dummyContacts();
+
     }
 
+//
+//    public void chatOnline() {
+//
+//        AtomicReference<String> name;
+//        // Create a dialog to select a contact
+//        Dialog<String> contactDialog = new ChoiceDialog<>(
+//                contactList.isEmpty() ? null : contactList.get(0).getName(),
+//                contactList.stream().map(Contact::getName).toList()
+//        );
+//        contactDialog.setTitle("Chat Online");
+//        contactDialog.setHeaderText("Select a contact to chat with");
+//        contactDialog.setContentText("Contact:");
+//
+//        // Show the dialog and get the selected contact
+//        contactDialog.showAndWait().ifPresent(selectedContact -> {
+//            if (selectedContact != null && !selectedContact.isEmpty()) {
+//                Contact contact = findContactByName(selectedContact);
+//
+//                if (contact != null) {
+//                    messageDisplayArea.clear();
+//                    messageDisplayArea.setText("Chatting with: " + selectedContact + "\n");
+//                    // Example logic to add chat history
+//
+//
+//                    // Optionally, add more logic for initializing the chat with the selected contact
+//                    System.out.println("Chat initialized with " + selectedContact);
+//                    System.out.println(findContactByName(selectedContact));
+//                } else {
+//                    Alert alert = new Alert(Alert.AlertType.WARNING);
+//                    alert.setTitle("Contact Not Found");
+//                    alert.setHeaderText(null);
+//                    alert.setContentText("The selected contact does not exist.");
+//                    alert.showAndWait();
+//                }
+//            } else {
+//                Alert alert = new Alert(Alert.AlertType.WARNING);
+//                alert.setTitle("No Contact Selected");
+//                alert.setHeaderText(null);
+//                alert.setContentText("Please select a valid contact to chat with.");
+//                alert.showAndWait();
+//            }
+//        });
+//    }
 
-    public void chatOnline() {
-//        Server server = new Server(12345, this);
-//        Thread serverThread = new Thread(server);
-//        serverThread.start();
-        System.out.println("chatOnline");
+
+    public Contact chatOnline(){
+
+
+        return contactList.get(0);
     }
 
-    public void sendButton() {
+    public void sendButton(String content) {
         sendButton.setOnAction(e -> {
             String message = messageInputField.getText();
             if (!message.isEmpty()) {
@@ -118,22 +160,27 @@ public class Gui extends Application {
                 messageInputField.clear();
             }
         });
+
+
     }
+//
+//    public void dummyContacts() {
+//        System.out.println("dummyContacts in gui");
+//        Contact alice = new Contact("Alice", "123-456-7890");
+//        alice.addMessage(new Sms("Hi Alice!", "You"));
+//        alice.addMessage(new Sms("Hello!", "Alice"));
+//
+//        Contact bob = new Contact("Bob", "987-654-3210");
+//        bob.addMessage(new Sms("Hey Bob, how are you?", "You"));
+//        bob.addMessage(new Sms("I’m good, thanks!", "Bob"));
+//
+//        contactList.addAll(alice, bob);
+//        updateContactButtons();
+//    }
 
-    private void setupContacts() {
-        Contact alice = new Contact("Alice", "123-456-7890");
-        alice.addMessage(new Sms("Hi Alice!", "You"));
-        alice.addMessage(new Sms("Hello!", "Alice"));
+    public void dummyContacts(){}
 
-        Contact bob = new Contact("Bob", "987-654-3210");
-        bob.addMessage(new Sms("Hey Bob, how are you?", "You"));
-        bob.addMessage(new Sms("I’m good, thanks!", "Bob"));
-
-        contactList.addAll(alice, bob);
-        updateContactButtons();
-    }
-
-    private void updateContactButtons() {
+    public void updateContactButtons() {
         contactVBox.getChildren().clear();
         contactButtons.clear();
 
@@ -147,18 +194,15 @@ public class Gui extends Application {
         }
     }
 
-//    private void configureSendButton() {
-//        sendButton.setOnAction(e -> sendMessage());
-//        messageInputField.setOnAction(e -> sendMessage());
-//    }
 
-    private void displayChatHistory(Contact contact) {
+
+    public void displayChatHistory(Contact contact) {
         StringBuilder chatHistory = new StringBuilder();
         contact.getChatHistory().forEach(sms -> chatHistory.append(sms.toString()).append("\n"));
         messageDisplayArea.setText(chatHistory.toString());
     }
 
-    private void sendMessage() {
+    public void sendMessage() {
         String selectedContactName = contactVBox.getChildren().stream()
                 .filter(node -> node instanceof Button && ((Button) node).isFocused())
                 .map(node -> ((Button) node).getText())
@@ -181,7 +225,7 @@ public class Gui extends Application {
         }
     }
 
-    private void showAddContactDialog() {
+    public void showAddContactDialog() {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Add Contact");
         dialog.setHeaderText("Enter new contact name and number separated by a comma.");
@@ -196,7 +240,7 @@ public class Gui extends Application {
         });
     }
 
-    private void showDeleteContactDialog() {
+    public void showDeleteContactDialog() {
         ChoiceDialog<String> dialog = new ChoiceDialog<>(null, contactList.stream().map(Contact::getName).toList());
         dialog.setTitle("Delete Contact");
         dialog.setHeaderText("Select a contact to delete.");
@@ -212,7 +256,7 @@ public class Gui extends Application {
         });
     }
 
-    private void showModifyContactDialog() {
+    public void showModifyContactDialog() {
         ChoiceDialog<String> dialog = new ChoiceDialog<>(null, contactList.stream().map(Contact::getName).toList());
         dialog.setTitle("Modify Contact");
         dialog.setHeaderText("Select a contact to modify.");
@@ -240,7 +284,7 @@ public class Gui extends Application {
         });
     }
 
-    private void showUserManualDialog() {
+    public void showUserManualDialog() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("User Manual");
         alert.setHeaderText("How to use the Chat Application");
@@ -295,13 +339,24 @@ public class Gui extends Application {
 
 
     public Contact findContactByName(String contactName) {
-        return contactList.stream()
-                .filter(contact -> contact.getName().equals(contactName))
-                .findFirst()
-                .orElse(null);
+        for (Contact contact : contactList) {
+            if (contact.getName().equals(contactName)) {
+                return contact;
+            }
+        }
+        return null;
     }
 
     public int getContactIndex(Contact contact) {
         return contactList.indexOf(contact);
     }
+
+
+    public void allContacts(){
+        for (Contact contact : contactList) {
+            System.out.println(contact.getName());
+        }
+    }
+
+
 }

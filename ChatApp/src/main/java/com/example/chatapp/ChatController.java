@@ -26,6 +26,7 @@ import java.io.Serializable;
 public class ChatController extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         primaryStage.setTitle("Chat App");
 
 
@@ -148,9 +149,8 @@ public class ChatController extends Application {
         serverButton.setOnAction(event -> {
             try{
 //                Gui gui = new Gui();
-//                gui.start(primaryStage);
-//                Server server = new Server();
-//                server.start(primaryStage);
+//                gui.start(new Stage(),1);
+                Server server = new Server();
             }catch (Exception e){
                 throw new RuntimeException(e);
             }
