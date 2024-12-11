@@ -24,14 +24,16 @@ public class Login extends Application {
         stage.setTitle("Chat App - Login");
 
         // Correct Media and MediaPlayer for the video
-        String videoPath = new File("src/main/resources/com/example/chatapp/videos/loginBackground.mp4").toURI().toString();
+        //String videoPath = new File(getClass().getResource("com/example/chatapp/videos/loginV,mp4").toExternalForm());
+        String videoPath = getClass().getResource("/com/example/chatapp/videos/loginV.mp4").toExternalForm();
+
         Media media = new Media(videoPath);
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         MediaView mediaView = new MediaView(mediaPlayer);
 
         // Adjust MediaView to cover the window
-        mediaView.setFitWidth(600);
-        mediaView.setFitHeight(600);
+        mediaView.setFitWidth(1920);
+        mediaView.setFitHeight(1080);
         mediaView.setPreserveRatio(false);
 
         // Start the video in a loop
@@ -41,14 +43,14 @@ public class Login extends Application {
         // Create the login interface
         VBox layout = new VBox();
 
-        Label usernameLabel = new Label("Username:");
+        Label usernameLabel = new Label("Username");
         usernameLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: #fffefe;");
 
         TextField usernameField = new TextField();
         usernameField.setMaxWidth(200);
         usernameField.setMinWidth(50);
 
-        Label passwordLabel = new Label("Password:");
+        Label passwordLabel = new Label("Password");
         passwordLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: #fffefe;");
 
         PasswordField passwordField = new PasswordField();
@@ -56,6 +58,7 @@ public class Login extends Application {
         passwordField.setMinWidth(50);
 
         Button loginButton = new Button("Login");
+        //loginButton.setStyle("-fx-font-size: 18px; -fx-text-fill: #000000; -fx-background-color: #fffefe;");
         Button registerButton = new Button("Register");
 
         HBox loginStuff = new HBox();
@@ -69,12 +72,13 @@ public class Login extends Application {
         layout.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6);"); // Transparent black background
 
         // Overlay the layout on top of the video
-//        StackPane root = new StackPane();
-//        root.getChildren().addAll(mediaView, layout);
+        StackPane root = new StackPane();
+        root.getChildren().addAll(mediaView, layout);
 
         // Set the scene
-        Scene scene = new Scene(layout, 600, 600);
+        Scene scene = new Scene(root, 1200, 600);
         stage.setScene(scene);
+        stage.setFullScreen(true);
         stage.show();
 
         // Login button action

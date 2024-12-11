@@ -12,9 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -34,6 +32,17 @@ public class Selection extends Application {
     public void start(Stage primaryStage) throws IOException {
         primaryStage.setTitle("Selection");
 
+
+        Image backgroundImage = new Image(getClass().getResource("/com/example/chatapp/images/SGB.jpg").toExternalForm());
+        BackgroundImage background = new BackgroundImage(backgroundImage,
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+
+        // Create the StackPane and set the background
+        StackPane root = new StackPane();
+        root.setBackground(new Background(background));
+
+
         HBox hbox = new HBox();
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(40);
@@ -42,11 +51,11 @@ public class Selection extends Application {
 //        root.setCenter(selectionLoader.load());
 
         Button chatButton = new Button("");
-        chatButton.setStyle("-fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 15; -fx-border-radius: 15;");
+        chatButton.setStyle("-fx-font-size: 14px; -fx-padding: 10 15; -fx-background-radius: 15; -fx-border-radius: 15;");
         Button creatorButton = new Button("");
-        creatorButton.setStyle("-fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 15; -fx-border-radius: 15;");
+        creatorButton.setStyle("-fx-font-size: 14px; -fx-padding: 10 15; -fx-background-radius: 15; -fx-border-radius: 15;");
         Button toolButton = new Button("");
-        toolButton.setStyle("-fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 15; -fx-border-radius: 15;");
+        toolButton.setStyle("-fx-font-size: 14px; -fx-padding: 10 15; -fx-background-radius: 15; -fx-border-radius: 15;");
 
         //adding sounds
         addHoverSound(chatButton);
@@ -68,33 +77,34 @@ public class Selection extends Application {
 //        Image tools = new Image("file:images/tools.png");
         Image tools = new Image(getClass().getResource("/com/example/chatapp/images/tools.png").toExternalForm());
         ImageView toolImageView = new ImageView(tools);
-        toolImageView.setFitHeight(200);
-        toolImageView.setFitWidth(200);
+        toolImageView.setFitHeight(160);
+        toolImageView.setFitWidth(160);
 //        toolImageView.setClip(clip);
         toolButton.setGraphic(toolImageView);
 
 //        Image creator = new Image("file:images/creators.png");
         Image creator = new Image(getClass().getResource("/com/example/chatapp/images/creators.png").toExternalForm());
         ImageView creatorImageView = new ImageView(creator);
-        creatorImageView.setFitHeight(200);
-        creatorImageView.setFitWidth(200);
+        creatorImageView.setFitHeight(160);
+        creatorImageView.setFitWidth(160);
 
         creatorButton.setGraphic(creatorImageView);
 
 //        Image chat = new Image("file:images/chathub.png");
         Image chat = new Image(getClass().getResource("/com/example/chatapp/images/chathub.png").toExternalForm());
         ImageView chatImageView = new ImageView(chat);
-        chatImageView.setFitHeight(200);
-        chatImageView.setFitWidth(200);
+        chatImageView.setFitHeight(160);
+        chatImageView.setFitWidth(160);
 
         chatButton.setGraphic(chatImageView);
 
 
         hbox.getChildren().addAll(chatButton, toolButton, creatorButton);
 
-        Scene scene = new Scene(hbox, 900,600 );
+        root.getChildren().add(hbox);
+        Scene scene = new Scene(root, 1200,600 );
 
-        primaryStage.setFullScreen(true);
+        //primaryStage.setFullScreen(true);
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();

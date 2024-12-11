@@ -29,6 +29,16 @@ public class ChatController extends Application {
 
         primaryStage.setTitle("Chat App");
 
+        Image backgroundImage = new Image(getClass().getResource("/com/example/chatapp/images/SGB.jpg").toExternalForm());
+        BackgroundImage background = new BackgroundImage(backgroundImage,
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+
+        // Create the StackPane and set the background
+        StackPane root1 = new StackPane();
+        root1.setBackground(new Background(background));
+
+
 
 //        String videoPath = new File("src/main/resources/com/example/chatapp/videos/bgVideo.mp4").toURI().toString();
 //        Media media = new Media(videoPath);
@@ -61,6 +71,7 @@ public class ChatController extends Application {
 
         Button serverButton = new Button();
         serverButton.setGraphic(view1);
+        serverButton.setStyle("-fx-font-size: 14px; -fx-padding: 10 15; -fx-background-radius: 15; -fx-border-radius: 15;");
 
 
 
@@ -72,6 +83,7 @@ public class ChatController extends Application {
 
         Button clientButton = new Button();
         clientButton.setGraphic(view2);
+        clientButton.setStyle("-fx-font-size: 14px; -fx-padding: 10 15; -fx-background-radius: 15; -fx-border-radius: 15;");
 
 
 
@@ -114,11 +126,13 @@ public class ChatController extends Application {
         StackPane stackPane = new StackPane();
         stackPane.getChildren().addAll(root);
 
+        root1.getChildren().addAll(stackPane);
+
 
         addHoverSound(serverButton);
         addHoverSound(clientButton);
 
-        Scene choiceScene = new Scene(stackPane,800,600, Color.BLACK);
+        Scene choiceScene = new Scene(root1,1200,600, Color.BLACK);
         choiceScene.setCursor(Cursor.HAND);
 
         // Load the FXML file
@@ -128,7 +142,7 @@ public class ChatController extends Application {
         // Set the scene and make the window resizable
         primaryStage.setScene(choiceScene);
         primaryStage.setResizable(true);
-        primaryStage.setFullScreen(true);
+        //primaryStage.setFullScreen(true);
         primaryStage.show();
 
 
