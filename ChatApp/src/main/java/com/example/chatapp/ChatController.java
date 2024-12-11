@@ -208,4 +208,17 @@ public class ChatController extends Application {
     }
 
 
+    //METHOD TO ADD HOVER EFFECT
+    private void addHoverEffect(Button button) {
+        button.setOnMouseEntered(e -> {
+            button.setScaleX(1.1); // Increase size horizontally
+            button.setScaleY(1.1); // Increase size vertically
+        });
+
+        button.setOnMouseExited(e -> {
+            button.setScaleX(1.0); // Reset size horizontally
+            button.setScaleY(1.0); // Reset size vertically
+        });
+    }
+
 }
