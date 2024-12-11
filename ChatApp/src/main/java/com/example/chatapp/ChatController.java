@@ -11,10 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -32,7 +29,19 @@ public class ChatController extends Application {
         primaryStage.setTitle("Chat App");
 
 
-
+        String videoPath = new File("src/main/resources/com/example/chatapp/videos/bgVideo.mp4").toURI().toString();
+        Media media = new Media(videoPath);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        MediaView mediaView = new MediaView(mediaPlayer);
+//
+//        // Adjust MediaView to cover the window
+        mediaView.setFitWidth(600);
+        mediaView.setFitHeight(600);
+        mediaView.setPreserveRatio(false);
+//
+//        // Start the video in a loop
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer.play();
 
 
 
@@ -100,11 +109,15 @@ public class ChatController extends Application {
         root.setCenter(hbox);
 
 
+        //creating overlay using stackpane in which background vid will play
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(mediaView, root);
+
 
         addHoverSound(serverButton);
         addHoverSound(clientButton);
 
-        Scene choiceScene = new Scene(root,800,600, Color.BLACK);
+        Scene choiceScene = new Scene(stackPane,800,600, Color.BLACK);
         choiceScene.setCursor(Cursor.HAND);
 
         // Load the FXML file
