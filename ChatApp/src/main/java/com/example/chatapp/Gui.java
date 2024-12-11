@@ -3,6 +3,7 @@ package com.example.chatapp;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
@@ -72,9 +73,17 @@ public class Gui extends Application {
 
         HBox inputBox = new HBox(messageInputField, sendButton);
         inputBox.setSpacing(20);
-        inputBox.setAlignment(Pos.BASELINE_CENTER);
+        inputBox.setAlignment(Pos.CENTER);
+        inputBox.setPadding(new Insets(10, 10, 10, 10));
+
+        contactVBox.setPrefWidth(300);
 
         mainLayout.setBottom(inputBox);
+
+        VBox rightBox = new VBox();
+        rightBox.setPrefWidth(20);
+        mainLayout.setRight(rightBox);
+
 
 
         // Scene
@@ -194,7 +203,7 @@ public class Gui extends Application {
 
         for (Contact contact : contactList) {
             Button contactButton = new Button(contact.getName());
-            contactButton.setPrefWidth(200);
+            contactButton.setPrefWidth(300);
             contactButton.setCursor(Cursor.HAND);
             contactButton.setPrefHeight(50);
 
