@@ -56,40 +56,48 @@ public class Selection extends Application {
 
 
 
-        hbox.getChildren().addAll(chatButton, toolButton, creatorButton);
-
-        Scene scene = new Scene(hbox, 900,300 );
 //        createReactiveBackground(scene);
 
-        primaryStage.setFullScreen(true);
-        primaryStage.setResizable(false);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+
 
         // Create a rectangle with rounded corners
 //        Rectangle clip = new Rectangle(200, 200);
 //        clip.setArcWidth(50);
 //        clip.setArcHeight(50);
 
-        Image tools = new Image("file:images/tools.png");
+//        Image tools = new Image("file:images/tools.png");
+        Image tools = new Image(getClass().getResource("/com/example/chatapp/images/tools.png").toExternalForm());
         ImageView toolImageView = new ImageView(tools);
         toolImageView.setFitHeight(200);
         toolImageView.setFitWidth(200);
 //        toolImageView.setClip(clip);
         toolButton.setGraphic(toolImageView);
 
-        Image creator = new Image("file:images/creators.png");
+//        Image creator = new Image("file:images/creators.png");
+        Image creator = new Image(getClass().getResource("/com/example/chatapp/images/creators.png").toExternalForm());
         ImageView creatorImageView = new ImageView(creator);
         creatorImageView.setFitHeight(200);
         creatorImageView.setFitWidth(200);
+
         creatorButton.setGraphic(creatorImageView);
 
-        Image chat = new Image("file:images/chathub.png");
+//        Image chat = new Image("file:images/chathub.png");
+        Image chat = new Image(getClass().getResource("/com/example/chatapp/images/chathub.png").toExternalForm());
         ImageView chatImageView = new ImageView(chat);
         chatImageView.setFitHeight(200);
         chatImageView.setFitWidth(200);
+
         chatButton.setGraphic(chatImageView);
 
+
+        hbox.getChildren().addAll(chatButton, toolButton, creatorButton);
+
+        Scene scene = new Scene(hbox, 900,600 );
+
+        primaryStage.setFullScreen(true);
+        primaryStage.setResizable(false);
+        primaryStage.setScene(scene);
+        primaryStage.show();
 
         addHoverEffect(chatButton);
         addHoverEffect(toolButton);
@@ -143,7 +151,8 @@ public class Selection extends Application {
         button.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
             // Play a system beep sound
             try {
-                Media sound = new Media(new File("C:\\Users\\Muhammad Eman\\Desktop\\TermProject\\ChatApp\\src\\main\\resources\\com\\example\\chatapp\\sounds\\hover.mp3").toURI().toString());
+//                Media sound = new Media(new File("C:\\Users\\Muhammad Eman\\Desktop\\TermProject\\ChatApp\\src\\main\\resources\\com\\example\\chatapp\\sounds\\hover.mp3").toURI().toString());
+                Media sound = new Media(getClass().getResource("/com/example/chatapp/sounds/hover.mp3").toExternalForm());
                 MediaPlayer mediaPlayer = new MediaPlayer(sound);
                 mediaPlayer.play();
             } catch (Exception e) {

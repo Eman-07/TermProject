@@ -29,31 +29,31 @@ public class ChatController extends Application {
         primaryStage.setTitle("Chat App");
 
 
-        String videoPath = new File("src/main/resources/com/example/chatapp/videos/bgVideo.mp4").toURI().toString();
-        Media media = new Media(videoPath);
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        MediaView mediaView = new MediaView(mediaPlayer);
-//
-//        // Adjust MediaView to cover the window
-        mediaView.setFitWidth(1920);
-        mediaView.setFitHeight(1080);
-        mediaView.setPreserveRatio(false);
+//        String videoPath = new File("src/main/resources/com/example/chatapp/videos/bgVideo.mp4").toURI().toString();
+//        Media media = new Media(videoPath);
+//        MediaPlayer mediaPlayer = new MediaPlayer(media);
+//        MediaView mediaView = new MediaView(mediaPlayer);
+////
+////        // Adjust MediaView to cover the window
+//        mediaView.setFitWidth(1920);
+//        mediaView.setFitHeight(1080);
+//        mediaView.setPreserveRatio(false);
 //
 //        // Start the video in a loop
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.play();
+//        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+//        mediaPlayer.play();
 
 
 
-        Image img1 = new Image("file:images/server.jpg");
+        Image img1 = new Image(getClass().getResource("/com/example/chatapp/images/serverB.png").toExternalForm());
         ImageView view1 = new ImageView(img1);
-        view1.setFitHeight(300);
-        view1.setFitWidth(240);
+        view1.setFitHeight(200);
+        view1.setFitWidth(200);
 
-        Image img2 = new Image("file:images/client .jpg");
+        Image img2 = new Image(getClass().getResource("/com/example/chatapp/images/clientB.png").toExternalForm());
         ImageView view2 = new ImageView(img2);
-        view2.setFitHeight(300);
-        view2.setFitWidth(240);
+        view2.setFitHeight(200);
+        view2.setFitWidth(200);
 
 
 
@@ -102,7 +102,7 @@ public class ChatController extends Application {
 
 ////
         hbox.getChildren().addAll(serverButton, clientButton);
-        hbox.setSpacing(100);
+        hbox.setSpacing(40);
         hbox.setAlignment(Pos.CENTER);
 //
         BorderPane root = new BorderPane();
@@ -111,7 +111,7 @@ public class ChatController extends Application {
 
         //creating overlay using stackpane in which background vid will play
         StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(mediaView, root);
+        stackPane.getChildren().addAll(root);
 
 
         addHoverSound(serverButton);
@@ -174,7 +174,8 @@ public class ChatController extends Application {
         button.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
             // Play a system beep sound
             try {
-                Media sound = new Media(new File("C:\\Users\\Muhammad Eman\\Desktop\\TermProject\\ChatApp\\src\\main\\resources\\com\\example\\chatapp\\sounds\\hover.mp3").toURI().toString());
+               // Media sound = new Media(new File("C:\\Users\\Muhammad Eman\\Desktop\\TermProject\\ChatApp\\src\\main\\resources\\com\\example\\chatapp\\sounds\\hover.mp3").toURI().toString());
+                Media sound = new Media(getClass().getResource("/com/example/chatapp/sounds/hover.mp3").toExternalForm());
                 MediaPlayer mediaPlayer = new MediaPlayer(sound);
                 mediaPlayer.play();
             } catch (Exception e) {
