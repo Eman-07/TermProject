@@ -1,8 +1,7 @@
 package com.example.chatapp;
-import javafx.collections.FXCollections;
+
 import javafx.collections.ObservableList;
-import javafx.scene.control.*;
-import javafx.stage.Stage;
+import javafx.scene.control.Alert;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,97 +13,91 @@ import java.net.Socket;
 public class Server extends Gui implements Runnable {
     private ServerSocket serverSocket;
     private PrintWriter out;
+    private BufferedReader in;
     private int port = 12345;
 
-    private String contactId;
     private Contact contact;
     private int contactIndex;
-    private String contactofInterestName;
-
 
     @Override
     public void run() {
         contactIndex = getContactIndex(contact);
-        System.out.println("the index is : " +contactIndex);
-
         try {
-            getMessageDisplayArea().setText("Waiting for " +contact.getName() +" connection...\n");
+            // Wait for a client connection
+            getMessageDisplayArea().appendText("Waiting for " + contact.getName() + " to connect...\n");
             Socket clientSocket = serverSocket.accept();
-            getMessageDisplayArea().setText(contact.getName()+" connected.\n");
+            getMessageDisplayArea().appendText(contact.getName() + " connected.\n");
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             out = new PrintWriter(clientSocket.getOutputStream(), true);
 
+            // Continuously read messages from the client
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
-                getMessageDisplayArea().setText(contact.getName()+": " + inputLine + "\n");
+                // Append the received message to the display area
+                getMessageDisplayArea().appendText(contact.getName() + ": " + inputLine + "\n");
 
-                getContactList().get(contactIndex).getChatHistory().add(new Sms(inputLine,contact.getName()));
+                // Add the received message to the chat history
+                Sms receivedMessage = new Sms(inputLine, contact.getName());
+                getContactList().get(contactIndex).addMessage(receivedMessage);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
-
-    public Contact chatOnline(){
-        contact = super.chatOnline();
-//        run();
-
-
-        try {
-            serverSocket = new ServerSocket(port);
-            new Thread(this).start(); // Start server thread
-        } catch (IOException e) {
-            e.printStackTrace();
+    public Contact chatOnline() {
+        contact = super.chatOnline(); // Choose the contact to chat with
+        if (contact != null) {
+            contactIndex = getContactIndex(contact);
+            try {
+                serverSocket = new ServerSocket(port);
+                new Thread(this).start(); // Start the server thread
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
         return null;
     }
 
-
-    public void test(){
-        System.out.println(contactofInterestName);
-        System.out.println(findContactByName(contactofInterestName));
-        System.out.println(findContactByName("eman"));
-
-    }
-
-    public void dummyContacts(){
-        System.out.println("Dummy contacts in server");
-        getContactList().add(new Contact("eman","05213510"));
-        getContactList().add(new Contact("sami","05213510"));
-        getContactList().add(new Contact("moeed","05213510"));
-        updateContactButtons();
-
-        allContacts();
-    }
-
-
-
     @Override
     public void sendButton(String message) {
-        if (out != null) {
+        if (out != null && message != null && !message.isEmpty()) {
+            // Send the message to the client
             out.println(message);
-            getMessageDisplayArea().setText("Me: " + message + "\n");
+
+            // Append the sent message to the display area
+            getMessageDisplayArea().appendText("Me: " + message + "\n");
+
+            // Add the sent message to the chat history
+            getContactList().get(contactIndex).addMessage(new Sms(message, "You"));
         }
-
-        getContactList().get(contactIndex).getChatHistory().add(new Sms(message,"You"));
-
-
-
     }
 
+    @Override
+    public void sendMessage() {
+        // Get the message content
+        String messageContent = getMessageInputField().getText().trim();
+        if (!messageContent.isEmpty()) {
+            // Send the message using the sendButton logic
+            sendButton(messageContent);
 
-//    public Contact findContactByName(String contactName , ObservableList<Contact> contacts) {
-//        for (Contact c : contacts) {
-//            if (c.getName().equals(contactName)) {
-//                return c;
-//            }
-//        }
-//        return null;
-//    }
+            // Clear the input field
+            getMessageInputField().clear();
+        } else {
+            // Show a warning if the message is empty
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Empty Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Message cannot be empty.");
+            alert.showAndWait();
+        }
+    }
 
-
+    public void dummyContacts() {
+        getContactList().add(new Contact("eman", "05213510"));
+        getContactList().add(new Contact("sami", "05213510"));
+        getContactList().add(new Contact("moeed", "05213510"));
+        updateContactButtons();
+    }
 }

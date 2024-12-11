@@ -4,8 +4,11 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -23,6 +26,8 @@ public class Gui extends Application {
     private Button sendButton;
 
     public ObservableList<Contact> contactList = FXCollections.observableArrayList();
+    private Contact selectedContact;
+
     private Map<String, Button> contactButtons = new HashMap<>();
 
     public Stage stage1 = new Stage();
@@ -83,18 +88,23 @@ public class Gui extends Application {
         deleteContact.setOnAction(e -> showDeleteContactDialog());
         modifyContact.setOnAction(e -> showModifyContactDialog());
         userManual.setOnAction(e -> showUserManualDialog());
+        startChat.setOnAction(e-> chatOnline());
 
-            //chatOnlineAction
-            startChat.setOnAction(e->chatOnline());
+// Handle the send button click event
+        sendButton.setOnAction(e -> sendMessage());
 
-
-        // if ENTER is pressed then it will send message
-        mainLayout.setOnKeyPressed(event -> {
+// Handle the "Enter" key press for sending messages
+        messageInputField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-               sendButton.fire();
+                sendMessage();
             }
         });
 
+        Image image = new Image("file:images/tools.png");
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(800);
+        imageView.setFitHeight(600);
+        imageView.setOpacity(100);
 
 
         dummyContacts();
@@ -147,8 +157,6 @@ public class Gui extends Application {
 
 
     public Contact chatOnline(){
-
-
         return contactList.get(0);
     }
 
@@ -163,7 +171,7 @@ public class Gui extends Application {
 
 
     }
-//
+
 //    public void dummyContacts() {
 //        System.out.println("dummyContacts in gui");
 //        Contact alice = new Contact("Alice", "123-456-7890");
@@ -186,8 +194,15 @@ public class Gui extends Application {
 
         for (Contact contact : contactList) {
             Button contactButton = new Button(contact.getName());
-            contactButton.setPrefWidth(contactVBox.getPrefWidth());
-            contactButton.setOnAction(e -> displayChatHistory(contact));
+            contactButton.setPrefWidth(200);
+            contactButton.setCursor(Cursor.HAND);
+            contactButton.setPrefHeight(50);
+
+            // Update selectedContact when the button is clicked
+            contactButton.setOnAction(e -> {
+                selectedContact = contact;
+                displayChatHistory(contact);
+            });
 
             contactButtons.put(contact.getName(), contactButton);
             contactVBox.getChildren().add(contactButton);
@@ -203,27 +218,37 @@ public class Gui extends Application {
     }
 
     public void sendMessage() {
-        String selectedContactName = contactVBox.getChildren().stream()
-                .filter(node -> node instanceof Button && ((Button) node).isFocused())
-                .map(node -> ((Button) node).getText())
-                .findFirst().orElse(null);
+        // Check if a contact is selected
+        if (selectedContact == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Contact Selected");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select a contact to send a message.");
+            alert.showAndWait();
+            return;
+        }
 
-        if (selectedContactName != null) {
-            Contact selectedContact = contactList.stream()
-                    .filter(contact -> contact.getName().equals(selectedContactName))
-                    .findFirst().orElse(null);
+        // Get the message content
+        String messageContent = messageInputField.getText().trim();
+        if (!messageContent.isEmpty()) {
+            // Create and add the message to the contact's chat history
+            Sms message = new Sms(messageContent, "You");
+            selectedContact.addMessage(message);
 
-            if (selectedContact != null) {
-                String messageContent = messageInputField.getText().trim();
-                if (!messageContent.isEmpty()) {
-                    Sms message = new Sms(messageContent, "You");
-                    selectedContact.addMessage(message);
-                    displayChatHistory(selectedContact);
-                    messageInputField.clear();
-                }
-            }
+            // Update the chat display
+            displayChatHistory(selectedContact);
+
+            // Clear the input field
+            messageInputField.clear();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Empty Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Message cannot be empty.");
+            alert.showAndWait();
         }
     }
+
 
     public void showAddContactDialog() {
         TextInputDialog dialog = new TextInputDialog();
@@ -312,8 +337,13 @@ public class Gui extends Application {
     }
 
 
+
     public TextArea getMessageDisplayArea() {
         return messageDisplayArea;
+    }
+
+    public TextField getMessageInputField() {
+        return messageInputField;
     }
 
     public void setMessageDisplayArea(TextArea messageDisplayArea) {
