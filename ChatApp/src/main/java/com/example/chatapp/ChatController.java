@@ -121,7 +121,7 @@ public class ChatController extends Application {
         choiceScene.setCursor(Cursor.HAND);
 
         // Load the FXML file
-        FXMLLoader chatLoader = new FXMLLoader(ChatController.class.getResource("chat-view.fxml"));
+        FXMLLoader chatLoader = new FXMLLoader(ChatController.class.getResource("gui-view.fxml"));
         Scene chatScene = new Scene(chatLoader.load());
 
         // Set the scene and make the window resizable
@@ -149,8 +149,8 @@ public class ChatController extends Application {
             try{
 //                Gui gui = new Gui();
 //                gui.start(primaryStage);
-                Server server = new Server();
-                server.start(primaryStage);
+//                Server server = new Server();
+//                server.start(primaryStage);
             }catch (Exception e){
                 throw new RuntimeException(e);
             }
@@ -159,30 +159,8 @@ public class ChatController extends Application {
 
 
         //scaling buttons when mouse appear on them
-        // Add mouse entered event
-        serverButton.setOnMouseEntered(e -> {
-            serverButton.setScaleX(1.1); // Increase size horizontally
-            serverButton.setScaleY(1.1); // Increase size vertically
-        });
-
-        // Add mouse exited event
-        serverButton.setOnMouseExited(e -> {
-            serverButton.setScaleX(1.0); // Reset size horizontally
-            serverButton.setScaleY(1.0); // Reset size vertically
-        });
-
-
-        // Add mouse entered event
-        clientButton.setOnMouseEntered(e -> {
-            clientButton.setScaleX(1.1); // Increase size horizontally
-            clientButton.setScaleY(1.1); // Increase size vertically
-        });
-
-        // Add mouse exited event
-        clientButton.setOnMouseExited(e -> {
-            clientButton.setScaleX(1.0); // Reset size horizontally
-            clientButton.setScaleY(1.0); // Reset size vertically
-        });
+        addHoverEffect(serverButton);
+        addHoverEffect(clientButton);
 
 
 

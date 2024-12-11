@@ -39,6 +39,14 @@ public class Contact {
         return chatHistory;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     // Add a message to chat history
     public void addMessage(Sms message) {
         chatHistory.add(message);

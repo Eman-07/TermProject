@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.chatapp.Gui">
-
+<AnchorPane fx:id="chatAnchor" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox fx:id="contactVBox" layoutX="14.0" layoutY="14.0" prefWidth="246.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" AnchorPane.bottomAnchor="13.0" />
+      <TextArea fx:id="messageDisplayArea" prefHeight="502.0" prefWidth="509.0" AnchorPane.bottomAnchor="84.0" AnchorPane.leftAnchor="277.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" editable="false" wrapText="true" />
+      <TextField fx:id="messageInputField" prefWidth="400.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="277.0" />
+      <Button fx:id="sendButton" text="Send" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="14.0" />
+   </children>
 </AnchorPane>

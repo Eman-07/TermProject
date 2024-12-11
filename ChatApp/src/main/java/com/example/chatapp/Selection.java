@@ -197,7 +197,7 @@ public class Selection extends Application {
 
 //        try {
 //            // Load the Chat view and set it in the center of the BorderPane
-////            FXMLLoader chatLoader = new FXMLLoaderXMLLoader(getClass().getResource("chat-view.fxml"));
+////            FXMLLoader chatLoader = new FXMLLoaderXMLLoader(getClass().getResource("gui-view.fxml"));
 ////            Node chatContent = chatLoader.load();
 ////            root.setCenter(chatContent);
 //        } catch (IOException e) {
