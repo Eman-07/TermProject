@@ -69,11 +69,11 @@ public class Login extends Application {
         layout.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6);"); // Transparent black background
 
         // Overlay the layout on top of the video
-        StackPane root = new StackPane();
+//        StackPane root = new StackPane();
 //        root.getChildren().addAll(mediaView, layout);
 
         // Set the scene
-        Scene scene = new Scene(root, 600, 600);
+        Scene scene = new Scene(layout, 600, 600);
         stage.setScene(scene);
         stage.show();
 
@@ -111,6 +111,8 @@ public class Login extends Application {
             }
         } catch (IOException ex) {
             throw new RuntimeException(ex);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

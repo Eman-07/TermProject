@@ -7,13 +7,20 @@ import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -24,21 +31,80 @@ public class ChatController extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Chat App");
 
-        HBox hbox = new HBox();
-        Button serverButton = new Button("I am Server");
-        Button clientButton = new Button("I am Client");
-        hbox.getChildren().addAll(serverButton, clientButton);
-        hbox.setSpacing(10);
-        hbox.setAlignment(Pos.CENTER);
 
+
+
+
+
+        Image img1 = new Image("file:images/server.jpg");
+        ImageView view1 = new ImageView(img1);
+        view1.setFitHeight(300);
+        view1.setFitWidth(240);
+
+        Image img2 = new Image("file:images/client .jpg");
+        ImageView view2 = new ImageView(img2);
+        view2.setFitHeight(300);
+        view2.setFitWidth(240);
+
+
+
+
+        Button serverButton = new Button();
+        serverButton.setGraphic(view1);
+
+
+
+//        HBox hbox = new HBox();
+//        hbox.setAlignment(Pos.CENTER);
+//        hbox.getChildren().addAll(view1, view2);
+
+
+
+        Button clientButton = new Button();
+        clientButton.setGraphic(view2);
+
+
+
+//        Text serverText = new Text("SERVER");
+//        serverText.setFont(Font.font("Verdana", 16));  // Set custom font and size
+        //serverText.setFill(Color.WHITE);   // Set font and size
+
+//        Text clientText = new Text("CLIENT");
+//        clientText.setFont(Font.font("Verdana", 16));  // Set custom font and size
+        //clientText.setFill(Color.WHITE);
+
+//        VBox serverBox = new VBox();
+//        serverBox.setAlignment(Pos.CENTER);
+//        serverBox.getChildren().addAll(view1, serverText);
+//        serverBox.setSpacing(5);
+
+//        VBox clientBox = new VBox();
+//        clientBox.setAlignment(Pos.CENTER);
+//        clientBox.getChildren().addAll(view2, clientText);
+//        clientBox.setSpacing(5);
+
+        HBox hbox = new HBox();
+//        hbox.setAlignment(Pos.CENTER);
+//        hbox.getChildren().addAll(serverBox, clientBox);
+//        hbox.setSpacing(50);
+
+
+
+
+////
+        hbox.getChildren().addAll(serverButton, clientButton);
+        hbox.setSpacing(100);
+        hbox.setAlignment(Pos.CENTER);
+//
         BorderPane root = new BorderPane();
         root.setCenter(hbox);
+
 
 
         addHoverSound(serverButton);
         addHoverSound(clientButton);
 
-        Scene choiceScene = new Scene(root,400,100, Color.BLACK);
+        Scene choiceScene = new Scene(root,800,600, Color.BLACK);
         choiceScene.setCursor(Cursor.HAND);
 
         // Load the FXML file
@@ -48,6 +114,7 @@ public class ChatController extends Application {
         // Set the scene and make the window resizable
         primaryStage.setScene(choiceScene);
         primaryStage.setResizable(false);
+        primaryStage.setFullScreen(true);
         primaryStage.show();
 
 
@@ -79,13 +146,6 @@ public class ChatController extends Application {
 
 
     }
-
-
-
-
-
-
-
 
 
 
