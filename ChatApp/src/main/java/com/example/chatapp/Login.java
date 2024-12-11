@@ -23,20 +23,20 @@ public class Login extends Application {
 
         stage.setTitle("Chat App - Login");
 
-//        // Correct Media and MediaPlayer for the video
-//        String videoPath = new File("src/main/resources/com/example/chatapp/videos/loginBackground.mp4").toURI().toString();
-//        Media media = new Media(videoPath);
-//        MediaPlayer mediaPlayer = new MediaPlayer(media);
-//        MediaView mediaView = new MediaView(mediaPlayer);
-//
-//        // Adjust MediaView to cover the window
-//        mediaView.setFitWidth(600);
-//        mediaView.setFitHeight(600);
-//        mediaView.setPreserveRatio(false);
-//
-//        // Start the video in a loop
-//        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-//        mediaPlayer.play();
+        // Correct Media and MediaPlayer for the video
+        String videoPath = new File("src/main/resources/com/example/chatapp/videos/loginBackground.mp4").toURI().toString();
+        Media media = new Media(videoPath);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        MediaView mediaView = new MediaView(mediaPlayer);
+
+        // Adjust MediaView to cover the window
+        mediaView.setFitWidth(600);
+        mediaView.setFitHeight(600);
+        mediaView.setPreserveRatio(false);
+
+        // Start the video in a loop
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer.play();
 
         // Create the login interface
         VBox layout = new VBox();
