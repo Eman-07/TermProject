@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -23,10 +24,17 @@ public class Gui extends Application {
     private ObservableList<Contact> contactList = FXCollections.observableArrayList();
     private Map<String, Button> contactButtons = new HashMap<>();
 
+    public Stage stage1 = new Stage();
+
+
+    public Gui(){
+//        start(new Stage());
+    }
     @Override
     public void start(Stage stage) {
-        stage.setTitle("Chat Application");
 
+        stage.setTitle("Chat Application");
+        stage1 = stage;
         // Layouts
         mainLayout = new BorderPane();
 
@@ -74,7 +82,7 @@ public class Gui extends Application {
 
         // Initialize Data
         setupContacts();
-        configureSendButton();
+        sendButton();
 
         // Menu Actions
         addContact.setOnAction(e -> showAddContactDialog());
@@ -83,42 +91,34 @@ public class Gui extends Application {
         userManual.setOnAction(e -> showUserManualDialog());
 
             //chatOnlineAction
-        startChat.setOnAction(e->chatOnline());
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
+            startChat.setOnAction(e->chatOnline());
 
 
-    public void chatOnline() {
-        // Create a dialog to select a contact
-        Dialog<String> contactDialog = new ChoiceDialog<>(
-                contactList.isEmpty() ? null : contactList.get(0).getName(),
-                contactList.stream().map(Contact::getName).toList()
-        );
-        contactDialog.setTitle("Chat Online");
-        contactDialog.setHeaderText("Select a contact to chat with");
-        contactDialog.setContentText("Contact:");
-
-        // Show the dialog and get the selected contact
-        contactDialog.showAndWait().ifPresent(selectedContact -> {
-            if (selectedContact != null && !selectedContact.isEmpty()) {
-                messageDisplayArea.clear();
-                messageDisplayArea.setText("Chatting with: " + selectedContact + "\n");
-
-                // Optionally, add more logic for initializing the chat with the selected contact
-                System.out.println("Chat initialized with " + selectedContact);
-            } else {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("No Contact Selected");
-                alert.setHeaderText(null);
-                alert.setContentText("Please select a valid contact to chat with.");
-                alert.showAndWait();
+        // if ENTER is pressed then it will send message
+        mainLayout.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+               sendButton.fire();
             }
         });
     }
 
+
+    public void chatOnline() {
+//        Server server = new Server(12345, this);
+//        Thread serverThread = new Thread(server);
+//        serverThread.start();
+        System.out.println("chatOnline");
+    }
+
+    public void sendButton() {
+        sendButton.setOnAction(e -> {
+            String message = messageInputField.getText();
+            if (!message.isEmpty()) {
+                messageDisplayArea.appendText("You: " + message + "\n");
+                messageInputField.clear();
+            }
+        });
+    }
 
     private void setupContacts() {
         Contact alice = new Contact("Alice", "123-456-7890");
@@ -147,10 +147,10 @@ public class Gui extends Application {
         }
     }
 
-    private void configureSendButton() {
-        sendButton.setOnAction(e -> sendMessage());
-        messageInputField.setOnAction(e -> sendMessage());
-    }
+//    private void configureSendButton() {
+//        sendButton.setOnAction(e -> sendMessage());
+//        messageInputField.setOnAction(e -> sendMessage());
+//    }
 
     private void displayChatHistory(Contact contact) {
         StringBuilder chatHistory = new StringBuilder();
