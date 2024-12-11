@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.chatapp.Selection">
+    <children>
+        <Button fx:id="chatAppButton" layoutX="25.0" layoutY="25.0" mnemonicParsing="false" onAction="#chat" prefHeight="114.0" prefWidth="201.0" text="ChatApp" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="25.0">
+            <font>
+                <Font name="Unispace-Bold" size="16.0" />
+            </font></Button>
+        <Button fx:id="toolsButton" layoutX="25.0" layoutY="143.0" mnemonicParsing="false" onAction="#tools" prefHeight="114.0" prefWidth="201.0" text="Tools" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="143.0">
+            <font>
+                <Font name="Unispace-Bold" size="16.0" />
+            </font></Button>
+        <Button fx:id="creatorsButton" layoutX="25.0" layoutY="260.0" mnemonicParsing="false" prefHeight="114.0" prefWidth="201.0" text="Creators" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="24.0">
+            <font>
+                <Font name="Unispace-Bold" size="14.0" />
+            </font></Button>
+    </children>
+</AnchorPane>
