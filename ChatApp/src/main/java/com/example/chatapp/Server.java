@@ -1,64 +1,7 @@
-//package com.example.chatapp;
-//
-//import javafx.scene.control.Alert;
-//import java.io.BufferedReader;
-//import java.io.IOException;
-//import java.io.InputStreamReader;
-//import java.io.PrintWriter;
-//import java.net.ServerSocket;
-//import java.net.Socket;
-//
-//public class Server extends Gui implements Runnable {
-//
-//    private ServerSocket serverSocket;
-//    private PrintWriter out;
-//    private int port;
-//    private Gui gui;
-//
-//    public Server(int port, Gui gui) {
-//        this.port = port;
-//        this.gui = gui;
-//    }
-//
-//    @Override
-//    public void run() {
-//        try {
-//            serverSocket = new ServerSocket(port);
-//            gui.getMessageDisplayArea().appendText("Server started on port " + port + "\n");
-//
-//            Socket clientSocket = serverSocket.accept();
-//            gui.getMessageDisplayArea().appendText("Client connected: " + clientSocket.getInetAddress() + "\n");
-//
-//            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-//            out = new PrintWriter(clientSocket.getOutputStream(), true);
-//
-//            String inputLine;
-//            while ((inputLine = in.readLine()) != null) {
-//                gui.getMessageDisplayArea().appendText("Client: " + inputLine + "\n");
-//            }
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                if (serverSocket != null) {
-//                    serverSocket.close();
-//                }
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-//
-//    public static void main(String[] args) {
-//        Server server = new Server(9090, new Gui());
-//    }
-//}
 package com.example.chatapp;
-
-import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.Dialog;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
@@ -71,63 +14,97 @@ import java.net.Socket;
 public class Server extends Gui implements Runnable {
     private ServerSocket serverSocket;
     private PrintWriter out;
-    private int port;
+    private int port = 12345;
 
     private String contactId;
     private Contact contact;
     private int contactIndex;
+    private String contactofInterestName;
+
 
     @Override
     public void run() {
         contactIndex = getContactIndex(contact);
+        System.out.println("the index is : " +contactIndex);
 
-//        try {
-//            getChatArea().append("Waiting for " +contact.getName() +" connection...\n");
-//            Socket clientSocket = serverSocket.accept();
-//            getChatArea().append(contact.getName()+" connected.\n");
-//
-//            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-//            out = new PrintWriter(clientSocket.getOutputStream(), true);
-//
-//            String inputLine;
-//            while ((inputLine = in.readLine()) != null) {
-//                getChatArea().append(contact.getName()+": " + inputLine + "\n");
-//
-//                getContacts().get(contactIndex).getChatHistory().add(new Sms(inputLine,contact.getName()));
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-    }
+        try {
+            getMessageDisplayArea().setText("Waiting for " +contact.getName() +" connection...\n");
+            Socket clientSocket = serverSocket.accept();
+            getMessageDisplayArea().setText(contact.getName()+" connected.\n");
 
-    public void chatOnline() {
-        // Create a dialog to select a contact
-        Dialog<String> contactDialog = new ChoiceDialog<>(
-                getContactList().isEmpty() ? null : getContactList().get(0).getName(),
-                getContactList().stream().map(Contact::getName).toList()
-        );
-        contactDialog.setTitle("Chat Online");
-        contactDialog.setHeaderText("Select a contact to chat with");
-        contactDialog.setContentText("Contact:");
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            out = new PrintWriter(clientSocket.getOutputStream(), true);
 
-        // Show the dialog and get the selected contact
-        contactDialog.showAndWait().ifPresent(selectedContact -> {
-            if (selectedContact != null && !selectedContact.isEmpty()) {
-                getContactList().clear();
-                getMessageDisplayArea().setText("Chatting with: " + selectedContact + "\n");
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                getMessageDisplayArea().setText(contact.getName()+": " + inputLine + "\n");
 
-                contact = findContactByName(selectedContact);
-
-                // Optionally, add more logic for initializing the chat with the selected contact
-                System.out.println("Chat initialized with " + selectedContact);
-            } else {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("No Contact Selected");
-                alert.setHeaderText(null);
-                alert.setContentText("Please select a valid contact to chat with.");
-                alert.showAndWait();
+                getContactList().get(contactIndex).getChatHistory().add(new Sms(inputLine,contact.getName()));
             }
-        });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+
+
+    public Contact chatOnline(){
+        contact = super.chatOnline();
+//        run();
+
+
+        try {
+            serverSocket = new ServerSocket(port);
+            new Thread(this).start(); // Start server thread
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+    public void test(){
+        System.out.println(contactofInterestName);
+        System.out.println(findContactByName(contactofInterestName));
+        System.out.println(findContactByName("eman"));
+
+    }
+
+    public void dummyContacts(){
+        System.out.println("Dummy contacts in server");
+        getContactList().add(new Contact("eman","05213510"));
+        getContactList().add(new Contact("sami","05213510"));
+        getContactList().add(new Contact("moeed","05213510"));
+        updateContactButtons();
+
+        allContacts();
+    }
+
+
+
+    @Override
+    public void sendButton(String message) {
+        if (out != null) {
+            out.println(message);
+            getMessageDisplayArea().setText("Me: " + message + "\n");
+        }
+
+        getContactList().get(contactIndex).getChatHistory().add(new Sms(message,"You"));
+
+
+
+    }
+
+
+//    public Contact findContactByName(String contactName , ObservableList<Contact> contacts) {
+//        for (Contact c : contacts) {
+//            if (c.getName().equals(contactName)) {
+//                return c;
+//            }
+//        }
+//        return null;
+//    }
+
 
 }
