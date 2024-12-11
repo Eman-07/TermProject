@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 public class Selection2 {
     public void start(Stage primaryStage) throws Exception {
 
-        Image img = new Image("file:images/2.png");
+        Image img = new Image("file:images/chathubicon.png");
         ImageView view = new ImageView(img);
 
         Button chatApp = new Button();

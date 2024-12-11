@@ -35,8 +35,8 @@ public class ChatController extends Application {
         MediaView mediaView = new MediaView(mediaPlayer);
 //
 //        // Adjust MediaView to cover the window
-        mediaView.setFitWidth(600);
-        mediaView.setFitHeight(600);
+        mediaView.setFitWidth(1920);
+        mediaView.setFitHeight(1080);
         mediaView.setPreserveRatio(false);
 //
 //        // Start the video in a loop
@@ -126,7 +126,7 @@ public class ChatController extends Application {
 
         // Set the scene and make the window resizable
         primaryStage.setScene(choiceScene);
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(true);
         primaryStage.setFullScreen(true);
         primaryStage.show();
 
@@ -154,6 +154,34 @@ public class ChatController extends Application {
             }catch (Exception e){
                 throw new RuntimeException(e);
             }
+        });
+
+
+
+        //scaling buttons when mouse appear on them
+        // Add mouse entered event
+        serverButton.setOnMouseEntered(e -> {
+            serverButton.setScaleX(1.1); // Increase size horizontally
+            serverButton.setScaleY(1.1); // Increase size vertically
+        });
+
+        // Add mouse exited event
+        serverButton.setOnMouseExited(e -> {
+            serverButton.setScaleX(1.0); // Reset size horizontally
+            serverButton.setScaleY(1.0); // Reset size vertically
+        });
+
+
+        // Add mouse entered event
+        clientButton.setOnMouseEntered(e -> {
+            clientButton.setScaleX(1.1); // Increase size horizontally
+            clientButton.setScaleY(1.1); // Increase size vertically
+        });
+
+        // Add mouse exited event
+        clientButton.setOnMouseExited(e -> {
+            clientButton.setScaleX(1.0); // Reset size horizontally
+            clientButton.setScaleY(1.0); // Reset size vertically
         });
 
 
