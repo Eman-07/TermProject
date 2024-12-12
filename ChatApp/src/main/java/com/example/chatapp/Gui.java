@@ -87,7 +87,7 @@ public class Gui extends Application {
 
 
         // Scene
-        Scene scene = new Scene(mainLayout, 800, 600);
+        Scene scene = new Scene(mainLayout, 1200, 600);
         stage.setScene(scene);
         stage.show();
 

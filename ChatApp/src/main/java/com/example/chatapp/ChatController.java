@@ -165,11 +165,24 @@ public class ChatController extends Application {
 //                Gui gui = new Gui();
 //                gui.start(new Stage(),1);
                 Server server = new Server();
+                server.start(primaryStage);
             }catch (Exception e){
                 throw new RuntimeException(e);
             }
         });
 
+
+        //Button action handler
+        clientButton.setOnAction(event -> {
+            try{
+//                Gui gui = new Gui();
+//                gui.start(new Stage(),1);
+                Client client = new Client();
+                client.start(primaryStage);
+            }catch (Exception e){
+                throw new RuntimeException(e);
+            }
+        });
 
 
         //scaling buttons when mouse appear on them
