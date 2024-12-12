@@ -92,7 +92,7 @@ public class Gui extends Application {
         stage.show();
 
 
-        // Menu Actions
+        // menu Actions
         addContact.setOnAction(e -> showAddContactDialog());
         deleteContact.setOnAction(e -> showDeleteContactDialog());
         modifyContact.setOnAction(e -> showModifyContactDialog());
@@ -118,6 +118,19 @@ public class Gui extends Application {
 
         dummyContacts();
 
+
+        //BackSpace key for moving back to previous window
+        mainLayout.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.BACK_SPACE) {
+                Selection selection = new Selection();
+                try {
+                    ChatController chatController = new ChatController();
+                    chatController.start(stage);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 
 //

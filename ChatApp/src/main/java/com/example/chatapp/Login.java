@@ -1,6 +1,7 @@
 package com.example.chatapp;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -78,8 +79,12 @@ public class Login extends Application {
         // Set the scene
         Scene scene = new Scene(root, 1200, 600);
         stage.setScene(scene);
-        //stage.setFullScreen(true);
+
+        String css = Login.class.getResource("styles/login.css").toExternalForm();
+        scene.getStylesheets().add(css);
         stage.show();
+
+        //stage.setFullScreen(true);
 
         // Login button action
         loginButton.setOnAction(e -> validateLogin(stage, usernameField, passwordField));
@@ -125,7 +130,6 @@ public class Login extends Application {
         alertStage.initModality(Modality.APPLICATION_MODAL);
         alertStage.setTitle("Register");
 
-        // Create UI components
         Label label1 = new Label("Username:");
         label1.setStyle("-fx-font-size: 18px; -fx-text-fill: #fffefe;");
 
@@ -167,12 +171,12 @@ public class Login extends Application {
         registerBox.setSpacing(10);
         registerBox.setStyle("-fx-background-color: #000000");
 
-        Scene scene = new Scene(registerBox, 300, 200);
+        Scene scene = new Scene(registerBox, 300, 250);
         alertStage.setScene(scene);
         alertStage.showAndWait();
     }
 
-    // Helper method to validate user credentials
+    //Method to validate user credentials
     public boolean validateUser(String username, String password) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader("Users.txt"))) {
             String line;
@@ -186,7 +190,7 @@ public class Login extends Application {
         return false;
     }
 
-    // Helper method to check if a username already exists
+    //method to check if a username already exists
     private boolean isUserExists(String username) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader("Users.txt"))) {
             String line;
@@ -200,7 +204,7 @@ public class Login extends Application {
         return false;
     }
 
-    // Helper method to show alerts
+    //method to show alerts
     private void showAlert(String title, String content, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);

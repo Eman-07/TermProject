@@ -2,6 +2,7 @@ package com.example.chatapp;
 
 import javafx.application.Application;
 import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -19,10 +20,13 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ToolsController extends Application {
+
+
+    @FXML
+    BorderPane pane;
     @Override
     public void start(Stage primaryStage) throws IOException {
         primaryStage.setTitle("TOOLS");
-//
 //        BorderPane root = new BorderPane();
 //
 //        FXMLLoader loader = new FXMLLoader(ToolsController.class.getResource("tools-view.fxml"));
@@ -177,6 +181,18 @@ public class ToolsController extends Application {
         addHoverEffect(button6);
 
 
+
+        //BackSpace key for moving back to previous window
+        root.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.BACK_SPACE) {
+                Selection selection = new Selection();
+                try {
+                    selection.start(primaryStage);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
 
     }
 
