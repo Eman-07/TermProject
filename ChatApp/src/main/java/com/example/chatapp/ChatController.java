@@ -71,7 +71,7 @@ public class ChatController extends Application {
 
         Button serverButton = new Button();
         serverButton.setGraphic(view1);
-        serverButton.setStyle("-fx-font-size: 14px; -fx-padding: 10 15; -fx-background-radius: 15; -fx-border-radius: 15;");
+        serverButton.setStyle("-fx-font-size: 14px; -fx-padding: 5 8; -fx-background-radius: 15; -fx-border-radius: 15;");
 
 
 
@@ -83,7 +83,7 @@ public class ChatController extends Application {
 
         Button clientButton = new Button();
         clientButton.setGraphic(view2);
-        clientButton.setStyle("-fx-font-size: 14px; -fx-padding: 10 15; -fx-background-radius: 15; -fx-border-radius: 15;");
+        clientButton.setStyle("-fx-font-size: 14px; -fx-padding: 5 8; -fx-background-radius: 15; -fx-border-radius: 15;");
 
 
 

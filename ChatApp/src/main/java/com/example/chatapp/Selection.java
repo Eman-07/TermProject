@@ -51,11 +51,11 @@ public class Selection extends Application {
 //        root.setCenter(selectionLoader.load());
 
         Button chatButton = new Button("");
-        chatButton.setStyle("-fx-font-size: 14px; -fx-padding: 10 15; -fx-background-radius: 15; -fx-border-radius: 15;");
+        chatButton.setStyle("-fx-font-size: 14px; -fx-padding: 5 8; -fx-background-radius: 15; -fx-border-radius: 15;");
         Button creatorButton = new Button("");
-        creatorButton.setStyle("-fx-font-size: 14px; -fx-padding: 10 15; -fx-background-radius: 15; -fx-border-radius: 15;");
+        creatorButton.setStyle("-fx-font-size: 14px; -fx-padding: 5 8; -fx-background-radius: 15; -fx-border-radius: 15;");
         Button toolButton = new Button("");
-        toolButton.setStyle("-fx-font-size: 14px; -fx-padding: 10 15; -fx-background-radius: 15; -fx-border-radius: 15;");
+        toolButton.setStyle("-fx-font-size: 14px; -fx-padding: 5 8; -fx-background-radius: 15; -fx-border-radius: 15;");
 
         //adding sounds
         addHoverSound(chatButton);

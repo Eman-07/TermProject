@@ -101,22 +101,22 @@ public class ToolsController extends Application {
         // Create six buttons
         Button button1 = new Button();
         button1.setGraphic(view1);
-        button1.setStyle("-fx-font-size: 14px; -fx-padding: 10 15; -fx-background-radius: 15; -fx-border-radius: 15;");
+        button1.setStyle("-fx-font-size: 14px; -fx-padding: 5 8; -fx-background-radius: 15; -fx-border-radius: 15;");
         Button button2 = new Button();
         button2.setGraphic(view2);
-        button2.setStyle("-fx-font-size: 14px; -fx-padding: 10 15; -fx-background-radius: 15; -fx-border-radius: 15;");
+        button2.setStyle("-fx-font-size: 14px; -fx-padding: 5 8; -fx-background-radius: 15; -fx-border-radius: 15;");
         Button button3 = new Button();
         button3.setGraphic(view3);
-        button3.setStyle("-fx-font-size: 14px; -fx-padding: 10 15; -fx-background-radius: 15; -fx-border-radius: 15;");
+        button3.setStyle("-fx-font-size: 14px; -fx-padding: 5 8; -fx-background-radius: 15; -fx-border-radius: 15;");
         Button button4 = new Button();
         button4.setGraphic(view4);
-        button4.setStyle("-fx-font-size: 14px; -fx-padding: 10 15; -fx-background-radius: 15; -fx-border-radius: 15;");
+        button4.setStyle("-fx-font-size: 14px; -fx-padding: 5 8; -fx-background-radius: 15; -fx-border-radius: 15;");
         Button button5 = new Button();
         button5.setGraphic(view5);
-        button5.setStyle("-fx-font-size: 14px; -fx-padding: 10 15; -fx-background-radius: 15; -fx-border-radius: 15;");
+        button5.setStyle("-fx-font-size: 14px; -fx-padding: 5 8; -fx-background-radius: 15; -fx-border-radius: 15;");
         Button button6 = new Button();
         button6.setGraphic(view6);
-        button6.setStyle("-fx-font-size: 14px; -fx-padding: 10 15; -fx-background-radius: 15; -fx-border-radius: 15;");
+        button6.setStyle("-fx-font-size: 14px; -fx-padding: 5 8; -fx-background-radius: 15; -fx-border-radius: 15;");
 
         // Add buttons to the grid, specifying their row and column positions
         gridPane.add(button1, 0, 0); // Column 0, Row 0

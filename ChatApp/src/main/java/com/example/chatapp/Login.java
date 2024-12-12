@@ -78,7 +78,7 @@ public class Login extends Application {
         // Set the scene
         Scene scene = new Scene(root, 1200, 600);
         stage.setScene(scene);
-        stage.setFullScreen(true);
+        //stage.setFullScreen(true);
         stage.show();
 
         // Login button action
